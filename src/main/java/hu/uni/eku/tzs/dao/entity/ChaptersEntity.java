@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
 
-
 @Data
 @Builder
 @NoArgsConstructor

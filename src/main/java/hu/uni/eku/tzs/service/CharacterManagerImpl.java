@@ -35,7 +35,6 @@ public class CharacterManagerImpl implements CharacterManager {
                 .build();
     }
 
-
     @Override
     public Characters record(Characters character) throws CharacterAlreadyExistsException {
         if (characterRepository.findById(character.getId()).isPresent()) {

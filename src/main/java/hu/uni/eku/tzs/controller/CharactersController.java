@@ -44,12 +44,13 @@ public class CharactersController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
     @ApiOperation("readById")
     @GetMapping("/{id}")
-    public CharactersDto readById(@PathVariable int id){
+    public CharactersDto readById(@PathVariable int id) {
         try {
             return characterMapper.characters2charactersDto(characterManager.readById(id));
-        }catch (CharacterNotFoundException e) {
+        } catch (CharacterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -68,10 +69,10 @@ public class CharactersController {
     @PutMapping(value = {""})
     public CharactersDto modify(@RequestBody CharactersDto dto) {
         Characters character = characterMapper.charactersDto2characters(dto);
-        try{
+        try {
             Characters modifyCharacter = characterManager.modify(character);
             return characterMapper.characters2charactersDto(modifyCharacter);
-        } catch (CharacterNotFoundException e){
+        } catch (CharacterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -79,9 +80,9 @@ public class CharactersController {
     @ApiOperation("Delete")
     @DeleteMapping(value = {""})
     public void delete(@RequestParam int id) {
-        try{
+        try {
             characterManager.delete(characterManager.readById(id));
-        } catch (CharacterNotFoundException e){
+        } catch (CharacterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }

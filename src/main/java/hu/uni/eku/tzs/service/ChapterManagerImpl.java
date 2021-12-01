@@ -38,7 +38,6 @@ public class ChapterManagerImpl implements ChapterManager {
                 .build();
     }
 
-
     @Override
     public Chapters record(Chapters chapter) throws ChapterAlreadyExistsException {
         if (chapterRepository.findById(chapter.getId()).isPresent()) {
