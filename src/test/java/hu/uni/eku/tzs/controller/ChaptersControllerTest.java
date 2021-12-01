@@ -19,7 +19,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
+
 
 @ExtendWith(MockitoExtension.class)
 public class ChaptersControllerTest {
@@ -37,8 +40,8 @@ public class ChaptersControllerTest {
     void readAllHappyPath() {
         // given
         when(chapterManager.readAll()).thenReturn(List.of(TestDataProvider.getTestChapter()));
-        when(chaptersMapper.chapters2ChaptersrDto(any())).thenReturn(TestDataProvider.getTesttDto());
-        Collection<ChaptersDto> expected = List.of(TestDataProvider.getTesttDto());
+        when(chaptersMapper.chapters2ChaptersrDto(any())).thenReturn(TestDataProvider.getTestDto());
+        Collection<ChaptersDto> expected = List.of(TestDataProvider.getTestDto());
         // when
         Collection<ChaptersDto> actual = controller.readAllChapters();
         //then
@@ -51,7 +54,7 @@ public class ChaptersControllerTest {
     void createChaptersHappyPath() throws ChapterAlreadyExistsException {
         // given
         Chapters test = TestDataProvider.getTestChapter();
-        ChaptersDto testDto = TestDataProvider.getTesttDto();
+        ChaptersDto testDto = TestDataProvider.getTestDto();
         when(chaptersMapper.chaptersDto2Chapters(testDto)).thenReturn(test);
         when(chapterManager.record(test)).thenReturn(test);
         when(chaptersMapper.chapters2ChaptersrDto(test)).thenReturn(testDto);
@@ -65,7 +68,7 @@ public class ChaptersControllerTest {
     void createChapterChapterAlreadyExistsException() throws ChapterAlreadyExistsException {
         // given
         Chapters test = TestDataProvider.getTestChapter();
-        ChaptersDto testDto =TestDataProvider.getTesttDto();
+        ChaptersDto testDto = TestDataProvider.getTestDto();
         when(chaptersMapper.chaptersDto2Chapters(testDto)).thenReturn(test);
         when(chapterManager.record(test)).thenThrow(new ChapterAlreadyExistsException());
         // when then
@@ -77,12 +80,12 @@ public class ChaptersControllerTest {
     @Test
     void updateHappyPath() throws ChapterNotFoundException {
         // given
-        ChaptersDto requestDto = TestDataProvider.getTesttDto();
+        ChaptersDto requestDto = TestDataProvider.getTestDto();
         Chapters test = TestDataProvider.getTestChapter();
         when(chaptersMapper.chaptersDto2Chapters(requestDto)).thenReturn(test);
         when(chapterManager.modify(test)).thenReturn(test);
         when(chaptersMapper.chapters2ChaptersrDto(test)).thenReturn(requestDto);
-        ChaptersDto expected = TestDataProvider.getTesttDto();
+        ChaptersDto expected = TestDataProvider.getTestDto();
         // when
         ChaptersDto response = controller.modify(requestDto);
         // then
@@ -120,12 +123,12 @@ public class ChaptersControllerTest {
         public static final int ID = 1;
 
         public static Chapters getTestChapter() {
-            return new Chapters (ID, 1, 1, "Tesst", 1);
+            return new Chapters(ID, 1, 1, "Test", 1);
         }
 
-        public static ChaptersDto getTesttDto() {
+        public static ChaptersDto getTestDto() {
             return ChaptersDto.builder()
-                    .id(1)
+                    .id(ID)
                     .act(1)
                     .scene(1)
                     .description("Test")

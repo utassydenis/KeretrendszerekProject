@@ -10,7 +10,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
@@ -40,17 +48,17 @@ public class ParagraphsController {
 
     @ApiOperation("readById")
     @GetMapping("/{id}")
-    public ParagraphsDto readById(@PathVariable int id){
+    public ParagraphsDto readById(@PathVariable int id) {
         try {
             return paragraphMapper.paragraphs2paragraphsDto(paragraphManager.readById(id));
-        }catch (ParagraphNotFoundException e) {
+        } catch (ParagraphNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @ApiOperation("Read All")
     @GetMapping(value = {""})
-    public Collection<ParagraphsDto> readAllCharacters() {
+    public Collection<ParagraphsDto> readAllParagraphs() {
         return paragraphManager.readAll()
                 .stream()
                 .map(paragraphMapper::paragraphs2paragraphsDto)
@@ -62,10 +70,10 @@ public class ParagraphsController {
     @PutMapping(value = {""})
     public ParagraphsDto modify(@RequestBody ParagraphsDto dto) {
         Paragraphs paragraph = paragraphMapper.paragraphsDto2paragraphs(dto);
-        try{
+        try {
             Paragraphs modifyParagraph = paragraphManager.modify(paragraph);
             return paragraphMapper.paragraphs2paragraphsDto(modifyParagraph);
-        } catch (ParagraphNotFoundException e){
+        } catch (ParagraphNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -73,9 +81,9 @@ public class ParagraphsController {
     @ApiOperation("Delete")
     @DeleteMapping(value = {""})
     public void delete(@RequestParam int id) {
-        try{
+        try {
             paragraphManager.delete(paragraphManager.readById(id));
-        } catch (ParagraphNotFoundException e){
+        } catch (ParagraphNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }

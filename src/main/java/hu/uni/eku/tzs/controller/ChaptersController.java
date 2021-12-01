@@ -6,14 +6,20 @@ import hu.uni.eku.tzs.model.Chapters;
 import hu.uni.eku.tzs.service.ChapterManager;
 import hu.uni.eku.tzs.service.exceptions.ChapterAlreadyExistsException;
 import hu.uni.eku.tzs.service.exceptions.ChapterNotFoundException;
-import hu.uni.eku.tzs.service.exceptions.CharacterNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -38,12 +44,13 @@ public class ChaptersController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
     @ApiOperation("readById")
     @GetMapping("/{id}")
-    public ChaptersDto readById(@PathVariable int id){
+    public ChaptersDto readById(@PathVariable int id) {
         try {
             return chapterMapper.chapters2ChaptersrDto(chapterManager.readById(id));
-        }catch (ChapterNotFoundException e) {
+        } catch (ChapterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -62,10 +69,10 @@ public class ChaptersController {
     @PutMapping(value = {""})
     public ChaptersDto modify(@RequestBody ChaptersDto dto) {
         Chapters chapter = chapterMapper.chaptersDto2Chapters(dto);
-        try{
+        try {
             Chapters modifyChapter = chapterManager.modify(chapter);
             return chapterMapper.chapters2ChaptersrDto(modifyChapter);
-        } catch (ChapterNotFoundException e){
+        } catch (ChapterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -73,9 +80,9 @@ public class ChaptersController {
     @ApiOperation("Delete")
     @DeleteMapping(value = {""})
     public void delete(@RequestParam int id) {
-        try{
+        try {
             chapterManager.delete(chapterManager.readById(id));
-        } catch (ChapterNotFoundException e){
+        } catch (ChapterNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
