@@ -1,6 +1,6 @@
 package hu.uni.eku.tzs.service.exceptions;
 
-public class ParagraphAlreadyExistsException extends Exception{
+public class ParagraphAlreadyExistsException extends Exception {
     public ParagraphAlreadyExistsException() {
     }
 
@@ -17,7 +17,7 @@ public class ParagraphAlreadyExistsException extends Exception{
     }
 
     public ParagraphAlreadyExistsException(String message, Throwable cause, boolean enableSuppression,
-                                      boolean writableStackTrace) {
+                                           boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

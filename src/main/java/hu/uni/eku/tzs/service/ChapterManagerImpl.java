@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ChapterManagerImpl implements ChapterManager{
+public class ChapterManagerImpl implements ChapterManager {
 
     private final ChaptersRepository chapterRepository;
 
@@ -24,8 +24,8 @@ public class ChapterManagerImpl implements ChapterManager{
                 chapterEntity.getAct(),
                 chapterEntity.getScene(),
                 chapterEntity.getDescription(),
-                chapterEntity.getWork_ID()
-                );
+                chapterEntity.getWorkId()
+        );
     }
 
     private static ChaptersEntity convertChaptersModel2Entity(Chapters chapter) {
@@ -34,7 +34,7 @@ public class ChapterManagerImpl implements ChapterManager{
                 .act(chapter.getAct())
                 .scene(chapter.getScene())
                 .description(chapter.getDescription())
-                .work_ID(chapter.getWork_ID())
+                .workId(chapter.getWorkId())
                 .build();
     }
 
@@ -50,7 +50,7 @@ public class ChapterManagerImpl implements ChapterManager{
                         .act(chapter.getAct())
                         .scene(chapter.getScene())
                         .description(chapter.getDescription())
-                        .work_ID(chapter.getWork_ID())
+                        .workId(chapter.getWorkId())
                         .build()
         );
         return convertChaptersEntity2Model(chapterEntity);

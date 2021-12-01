@@ -1,18 +1,12 @@
 package hu.uni.eku.tzs.service;
 
-import hu.uni.eku.tzs.dao.ParagraphsRepository;
 import hu.uni.eku.tzs.dao.WorksRepository;
-import hu.uni.eku.tzs.dao.entity.ParagraphsEntity;
 import hu.uni.eku.tzs.dao.entity.WorksEntity;
-import hu.uni.eku.tzs.model.Paragraphs;
 import hu.uni.eku.tzs.model.Works;
-import hu.uni.eku.tzs.service.exceptions.ParagraphAlreadyExistsException;
-import hu.uni.eku.tzs.service.exceptions.ParagraphNotFoundException;
 import hu.uni.eku.tzs.service.exceptions.WorksAlreadyExistsException;
 import hu.uni.eku.tzs.service.exceptions.WorksNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;

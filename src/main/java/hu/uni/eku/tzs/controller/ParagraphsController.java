@@ -65,7 +65,6 @@ public class ParagraphsController {
                 .collect(Collectors.toList());
     }
 
-
     @ApiOperation("Modify")
     @PutMapping(value = {""})
     public ParagraphsDto modify(@RequestBody ParagraphsDto dto) {

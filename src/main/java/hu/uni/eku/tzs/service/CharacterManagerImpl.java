@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CharacterManagerImpl implements CharacterManager{
+public class CharacterManagerImpl implements CharacterManager {
 
     private final CharactersRepository characterRepository;
 

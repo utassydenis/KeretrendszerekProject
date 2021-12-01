@@ -19,6 +19,6 @@ public class ChaptersDto {
 
     private String description;
 
-    private int work_ID;
+    private int workId;
 
 }

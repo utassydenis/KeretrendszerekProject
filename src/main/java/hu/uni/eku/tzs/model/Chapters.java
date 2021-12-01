@@ -1,6 +1,5 @@
 package hu.uni.eku.tzs.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -22,6 +21,6 @@ public class Chapters {
 
     private String description;
 
-    private int work_ID;
+    private int workId;
 
 }

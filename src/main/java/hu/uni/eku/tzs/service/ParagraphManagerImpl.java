@@ -23,9 +23,9 @@ public class ParagraphManagerImpl implements ParagraphManager {
                 paragraphsEntity.getId(),
                 paragraphsEntity.getParagraphNum(),
                 paragraphsEntity.getPlainText(),
-                paragraphsEntity.getCharacter_ID(),
-                paragraphsEntity.getChapter_ID()
-                );
+                paragraphsEntity.getCharacterId(),
+                paragraphsEntity.getChapterId()
+        );
     }
 
     private static ParagraphsEntity convertParagraphssModel2Entity(Paragraphs paragraph) {
@@ -33,8 +33,8 @@ public class ParagraphManagerImpl implements ParagraphManager {
                 .id(paragraph.getId())
                 .paragraphNum(paragraph.getParagraphNum())
                 .plainText(paragraph.getPlainText())
-                .character_ID(paragraph.getCharacter_ID())
-                .chapter_ID(paragraph.getChapter_ID())
+                .characterId(paragraph.getCharacterId())
+                .chapterId(paragraph.getChapterId())
                 .build();
     }
 
@@ -48,8 +48,8 @@ public class ParagraphManagerImpl implements ParagraphManager {
                         .id(paragraph.getId())
                         .paragraphNum(paragraph.getParagraphNum())
                         .plainText(paragraph.getPlainText())
-                        .character_ID(paragraph.getCharacter_ID())
-                        .chapter_ID(paragraph.getChapter_ID())
+                        .characterId(paragraph.getCharacterId())
+                        .chapterId(paragraph.getChapterId())
                         .build()
         );
         return convertParagraphsEntity2Model(paragraphEntity);

@@ -28,8 +28,8 @@ public class ParagraphsEntity {
     private String plainText;
 
     @Column(name = "character_id")
-    private int character_ID;
+    private int characterId;
 
     @Column(name = "chapter_id")
-    private int chapter_ID;
+    private int chapterId;
 }

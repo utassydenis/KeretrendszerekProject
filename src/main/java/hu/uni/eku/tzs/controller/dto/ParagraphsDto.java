@@ -17,8 +17,8 @@ public class ParagraphsDto {
 
     private String plainText;
 
-    private int character_ID;
+    private int characterId;
 
-    private int chapter_ID;
+    private int chapterId;
 
 }

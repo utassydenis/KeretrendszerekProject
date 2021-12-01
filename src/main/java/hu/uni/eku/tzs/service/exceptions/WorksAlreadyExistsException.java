@@ -1,6 +1,6 @@
 package hu.uni.eku.tzs.service.exceptions;
 
-public class WorksAlreadyExistsException extends Exception{
+public class WorksAlreadyExistsException extends Exception {
     public WorksAlreadyExistsException() {
     }
 
@@ -17,7 +17,7 @@ public class WorksAlreadyExistsException extends Exception{
     }
 
     public WorksAlreadyExistsException(String message, Throwable cause, boolean enableSuppression,
-                                      boolean writableStackTrace) {
+                                       boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -1,6 +1,6 @@
 package hu.uni.eku.tzs.service.exceptions;
 
-public class CharacterNotFoundException extends Exception{
+public class CharacterNotFoundException extends Exception {
     public CharacterNotFoundException() {
     }
 
@@ -17,7 +17,7 @@ public class CharacterNotFoundException extends Exception{
     }
 
     public CharacterNotFoundException(String message, Throwable cause, boolean enableSuppression,
-                                           boolean writableStackTrace) {
+                                      boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

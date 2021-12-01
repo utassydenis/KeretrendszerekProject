@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -63,7 +64,6 @@ public class ChaptersController {
                 .map(chapterMapper::chapters2ChaptersrDto)
                 .collect(Collectors.toList());
     }
-
 
     @ApiOperation("Modify")
     @PutMapping(value = {""})

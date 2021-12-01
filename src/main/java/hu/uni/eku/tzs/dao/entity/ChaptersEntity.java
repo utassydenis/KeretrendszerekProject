@@ -1,12 +1,15 @@
 package hu.uni.eku.tzs.dao.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+
 
 @Data
 @Builder
@@ -30,6 +33,6 @@ public class ChaptersEntity {
     private String description;
 
     @Column(name = "work_id")
-    private int work_ID;
+    private int workId;
 
 }

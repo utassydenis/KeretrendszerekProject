@@ -126,8 +126,8 @@ public class ParagraphsControllerTest {
                     .id(ID)
                     .paragraphNum(1)
                     .plainText("Test text")
-                    .character_ID(1)
-                    .chapter_ID(1)
+                    .characterId(1)
+                    .chapterId(1)
                     .build();
         }
     }

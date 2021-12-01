@@ -132,6 +132,7 @@ public class ChaptersControllerTest {
                     .act(1)
                     .scene(1)
                     .description("Test")
+                    .workId(1)
                     .build();
         }
     }
