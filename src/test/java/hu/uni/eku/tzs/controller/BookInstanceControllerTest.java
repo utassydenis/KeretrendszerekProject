@@ -1,29 +1,6 @@
 package hu.uni.eku.tzs.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
-import hu.uni.eku.tzs.controller.dto.AuthorDto;
-import hu.uni.eku.tzs.controller.dto.BookDto;
-import hu.uni.eku.tzs.controller.dto.BookInstanceDto;
-import hu.uni.eku.tzs.controller.dto.BookInstanceMapper;
-import hu.uni.eku.tzs.controller.dto.BookMapper;
-import hu.uni.eku.tzs.model.Author;
-import hu.uni.eku.tzs.model.Book;
-import hu.uni.eku.tzs.model.BookInstance;
-import hu.uni.eku.tzs.model.BookState;
-import hu.uni.eku.tzs.service.BookInstanceManager;
-import hu.uni.eku.tzs.service.exceptions.BookNotFoundException;
-import java.util.Collection;
-import java.util.List;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
-
-@ExtendWith(MockitoExtension.class)
+/*@ExtendWith(MockitoExtension.class)
 class BookInstanceControllerTest {
 
     @Mock
@@ -126,4 +103,4 @@ class BookInstanceControllerTest {
         }
     }
 
-}
+}*/
