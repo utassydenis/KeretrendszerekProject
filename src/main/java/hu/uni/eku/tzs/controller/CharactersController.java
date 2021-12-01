@@ -63,8 +63,7 @@ public class CharactersController {
                 .map(characterMapper::characters2charactersDto)
                 .collect(Collectors.toList());
     }
-
-
+    
     @ApiOperation("Modify")
     @PutMapping(value = {""})
     public CharactersDto modify(@RequestBody CharactersDto dto) {
