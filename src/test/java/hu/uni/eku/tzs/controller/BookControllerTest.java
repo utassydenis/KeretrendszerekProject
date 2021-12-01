@@ -7,7 +7,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-/*
+import hu.uni.eku.tzs.controller.dto.AuthorDto;
+import hu.uni.eku.tzs.controller.dto.BookDto;
+import hu.uni.eku.tzs.controller.dto.BookMapper;
+import hu.uni.eku.tzs.model.Author;
+import hu.uni.eku.tzs.model.Book;
+import hu.uni.eku.tzs.service.BookManager;
+import hu.uni.eku.tzs.service.exceptions.BookAlreadyExistsException;
+import hu.uni.eku.tzs.service.exceptions.BookNotFoundException;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -143,4 +150,4 @@ class BookControllerTest {
     }
 
 
-}*/
+}

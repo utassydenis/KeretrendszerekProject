@@ -1,10 +1,17 @@
-/*package hu.uni.eku.tzs.service;
+package hu.uni.eku.tzs.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
+import hu.uni.eku.tzs.dao.AuthorRepository;
+import hu.uni.eku.tzs.dao.BookRepository;
+import hu.uni.eku.tzs.dao.entity.AuthorEntity;
+import hu.uni.eku.tzs.dao.entity.BookEntity;
+import hu.uni.eku.tzs.model.Author;
+import hu.uni.eku.tzs.model.Book;
+import hu.uni.eku.tzs.service.exceptions.BookAlreadyExistsException;
+import hu.uni.eku.tzs.service.exceptions.BookNotFoundException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -196,4 +203,4 @@ class BookManagerImplTest {
                 .build();
         }
     }
-}*/
+}
