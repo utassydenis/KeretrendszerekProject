@@ -47,7 +47,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void createWorksHappyPath() throws WorksAlreadyExistsException {
+    void createWorkssHappyPath() throws WorksAlreadyExistsException {
         // given
         Works test = TestDataProvider.getTestWork();
         WorksDto testDto = TestDataProvider.getTestDto();
@@ -61,7 +61,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void createWorkAlreadyExistsException() throws WorksAlreadyExistsException {
+    void createWorkWorksAlreadyExistsException() throws WorksAlreadyExistsException {
         // given
         Works test = TestDataProvider.getTestWork();
         WorksDto testDto = TestDataProvider.getTestDto();
@@ -85,7 +85,8 @@ public class WorksControllerTest {
         // when
         WorksDto response = controller.modify(requestDto);
         // then
-        assertThat(response).usingRecursiveComparison().isEqualTo(expected);
+        assertThat(response).usingRecursiveComparison()
+                .isEqualTo(expected);
     }
 
 
@@ -101,7 +102,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void deleteFromQueryWorksWhenParagraphNotFound() throws WorksNotFoundException {
+    void deleteFromQueryParamWhenWorkNotFound() throws WorksNotFoundException {
         // given
         final int notFoundWorkID = TestDataProvider.ID;
         doThrow(new WorksNotFoundException()).when(workManager).readById(notFoundWorkID);
@@ -109,7 +110,8 @@ public class WorksControllerTest {
 //        doThrow(new BookNotFoundException()).when(bookManager).readByIsbn(notFoundBookIsbn);
 //        when(bookManager.readByIsbn(notFoundBookIsbn)).thenThrow(new BookNotFoundException());
         // when then
-        assertThatThrownBy(() -> controller.delete(notFoundWorkID)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> controller.delete(notFoundWorkID))
+                .isInstanceOf(ResponseStatusException.class);
     }
 
     private static class TestDataProvider {
@@ -117,11 +119,17 @@ public class WorksControllerTest {
         public static final int ID = 1;
 
         public static Works getTestWork() {
-            return new Works(ID, "Test Work", "Long Test Work", 12, "Comedy");
+            return new Works(ID, "Test Work", "Test Work Long", 1996, "Comedy");
         }
 
         public static WorksDto getTestDto() {
-            return WorksDto.builder().id(ID).title("Test Work").longTitle("Long Test Work").date(12).genreType("Comedy").build();
+            return WorksDto.builder()
+                    .id(ID)
+                    .title("Test Work")
+                    .longTitle("Test Work Long")
+                    .date(1996)
+                    .genreType("Comedy")
+                    .build();
         }
     }
 }

@@ -4,7 +4,9 @@ import hu.uni.eku.tzs.controller.dto.ParagraphsDto;
 import hu.uni.eku.tzs.controller.dto.ParagraphsMapper;
 import hu.uni.eku.tzs.model.Paragraphs;
 import hu.uni.eku.tzs.service.ParagraphManager;
-import hu.uni.eku.tzs.service.exceptions.*;
+
+import hu.uni.eku.tzs.service.exceptions.ParagraphAlreadyExistsException;
+import hu.uni.eku.tzs.service.exceptions.ParagraphNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
