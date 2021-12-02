@@ -37,9 +37,9 @@ public class ParagraphsController {
     @ApiOperation("Record")
     @PostMapping(value = {""})
     public ParagraphsDto create(@RequestBody ParagraphsDto paragraphDto) {
-        Paragraphs paragrah = paragraphMapper.paragraphsDto2paragraphs(paragraphDto);
+        Paragraphs paragraph = paragraphMapper.paragraphsDto2paragraphs(paragraphDto);
         try {
-            Paragraphs recordedParagraph = paragraphManager.record(paragrah);
+            Paragraphs recordedParagraph = paragraphManager.record(paragraph);
             return paragraphMapper.paragraphs2paragraphsDto(recordedParagraph);
         } catch (ParagraphAlreadyExistsException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
