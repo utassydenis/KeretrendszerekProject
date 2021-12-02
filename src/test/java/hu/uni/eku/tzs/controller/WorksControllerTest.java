@@ -35,9 +35,9 @@ public class WorksControllerTest {
     @Test
     void readAllHappyPath() {
         // given
-        when(workManager.readAll()).thenReturn(List.of(WorksControllerTest.TestDataProvider.getTestWork()));
-        when(workMapper.works2worksDto(any())).thenReturn(WorksControllerTest.TestDataProvider.getTestDto());
-        Collection<WorksDto> expected = List.of(WorksControllerTest.TestDataProvider.getTestDto());
+        when(workManager.readAll()).thenReturn(List.of(TestDataProvider.getTestWork()));
+        when(workMapper.works2worksDto(any())).thenReturn(TestDataProvider.getTestDto());
+        Collection<WorksDto> expected = List.of(TestDataProvider.getTestDto());
         // when
         Collection<WorksDto> actual = controller.readAllWorks();
         //then
@@ -49,8 +49,8 @@ public class WorksControllerTest {
     @Test
     void createWorksHappyPath() throws WorksAlreadyExistsException {
         // given
-        Works test = WorksControllerTest.TestDataProvider.getTestWork();
-        WorksDto testDto = WorksControllerTest.TestDataProvider.getTestDto();
+        Works test = TestDataProvider.getTestWork();
+        WorksDto testDto = TestDataProvider.getTestDto();
         when(workMapper.worksDto2works(testDto)).thenReturn(test);
         when(workManager.record(test)).thenReturn(test);
         when(workMapper.works2worksDto(test)).thenReturn(testDto);
@@ -63,8 +63,8 @@ public class WorksControllerTest {
     @Test
     void createWorkAlreadyExistsException() throws WorksAlreadyExistsException {
         // given
-        Works test = WorksControllerTest.TestDataProvider.getTestWork();
-        WorksDto testDto = WorksControllerTest.TestDataProvider.getTestDto();
+        Works test = TestDataProvider.getTestWork();
+        WorksDto testDto = TestDataProvider.getTestDto();
         when(workMapper.worksDto2works(testDto)).thenReturn(test);
         when(workManager.record(test)).thenThrow(new WorksAlreadyExistsException());
         // when then
@@ -76,12 +76,12 @@ public class WorksControllerTest {
     @Test
     void updateHappyPath() throws WorksNotFoundException {
         // given
-        WorksDto requestDto = WorksControllerTest.TestDataProvider.getTestDto();
-        Works test = WorksControllerTest.TestDataProvider.getTestWork();
+        WorksDto requestDto = TestDataProvider.getTestDto();
+        Works test = TestDataProvider.getTestWork();
         when(workMapper.worksDto2works(requestDto)).thenReturn(test);
         when(workManager.modify(test)).thenReturn(test);
         when(workMapper.works2worksDto(test)).thenReturn(requestDto);
-        WorksDto expected = WorksControllerTest.TestDataProvider.getTestDto();
+        WorksDto expected = TestDataProvider.getTestDto();
         // when
         WorksDto response = controller.modify(requestDto);
         // then
@@ -92,18 +92,18 @@ public class WorksControllerTest {
     @Test
     void deleteFromQueryParamHappyPath() throws WorksNotFoundException {
         // given
-        Works test = WorksControllerTest.TestDataProvider.getTestWork();
-        when(workManager.readById(WorksControllerTest.TestDataProvider.ID)).thenReturn(test);
+        Works test = TestDataProvider.getTestWork();
+        when(workManager.readById(TestDataProvider.ID)).thenReturn(test);
         doNothing().when(workManager).delete(test);
         // when
-        controller.delete(WorksControllerTest.TestDataProvider.ID);
+        controller.delete(TestDataProvider.ID);
         // then is not necessary, mock are checked by default
     }
 
     @Test
     void deleteFromQueryWorksWhenParagraphNotFound() throws WorksNotFoundException {
         // given
-        final int notFoundWorkID = WorksControllerTest.TestDataProvider.ID;
+        final int notFoundWorkID = TestDataProvider.ID;
         doThrow(new WorksNotFoundException()).when(workManager).readById(notFoundWorkID);
 //        These two lines mean the same.
 //        doThrow(new BookNotFoundException()).when(bookManager).readByIsbn(notFoundBookIsbn);

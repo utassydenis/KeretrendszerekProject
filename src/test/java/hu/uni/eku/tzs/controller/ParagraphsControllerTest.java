@@ -34,9 +34,9 @@ public class ParagraphsControllerTest {
     @Test
     void readAllHappyPath() {
         // given
-        when(paragraphManager.readAll()).thenReturn(List.of(ParagraphsControllerTest.TestDataProvider.getTestParagraph()));
-        when(paragraphsMapper.paragraphs2paragraphsDto(any())).thenReturn(ParagraphsControllerTest.TestDataProvider.getTestDto());
-        Collection<ParagraphsDto> expected = List.of(ParagraphsControllerTest.TestDataProvider.getTestDto());
+        when(paragraphManager.readAll()).thenReturn(List.of(TestDataProvider.getTestParagraph()));
+        when(paragraphsMapper.paragraphs2paragraphsDto(any())).thenReturn(TestDataProvider.getTestDto());
+        Collection<ParagraphsDto> expected = List.of(TestDataProvider.getTestDto());
         // when
         Collection<ParagraphsDto> actual = controller.readAllParagraphs();
         //then
@@ -48,8 +48,8 @@ public class ParagraphsControllerTest {
     @Test
     void createParagraphsHappyPath() throws ParagraphAlreadyExistsException {
         // given
-        Paragraphs test = ParagraphsControllerTest.TestDataProvider.getTestParagraph();
-        ParagraphsDto testDto = ParagraphsControllerTest.TestDataProvider.getTestDto();
+        Paragraphs test = TestDataProvider.getTestParagraph();
+        ParagraphsDto testDto = TestDataProvider.getTestDto();
         when(paragraphsMapper.paragraphsDto2paragraphs(testDto)).thenReturn(test);
         when(paragraphManager.record(test)).thenReturn(test);
         when(paragraphsMapper.paragraphs2paragraphsDto(test)).thenReturn(testDto);
@@ -62,8 +62,8 @@ public class ParagraphsControllerTest {
     @Test
     void createParagraphAlreadyExistsException() throws ParagraphAlreadyExistsException {
         // given
-        Paragraphs test = ParagraphsControllerTest.TestDataProvider.getTestParagraph();
-        ParagraphsDto testDto = ParagraphsControllerTest.TestDataProvider.getTestDto();
+        Paragraphs test = TestDataProvider.getTestParagraph();
+        ParagraphsDto testDto = TestDataProvider.getTestDto();
         when(paragraphsMapper.paragraphsDto2paragraphs(testDto)).thenReturn(test);
         when(paragraphManager.record(test)).thenThrow(new ParagraphAlreadyExistsException());
         // when then
@@ -75,12 +75,12 @@ public class ParagraphsControllerTest {
     @Test
     void updateHappyPath() throws ParagraphNotFoundException {
         // given
-        ParagraphsDto requestDto = ParagraphsControllerTest.TestDataProvider.getTestDto();
-        Paragraphs test = ParagraphsControllerTest.TestDataProvider.getTestParagraph();
+        ParagraphsDto requestDto = TestDataProvider.getTestDto();
+        Paragraphs test = TestDataProvider.getTestParagraph();
         when(paragraphsMapper.paragraphsDto2paragraphs(requestDto)).thenReturn(test);
         when(paragraphManager.modify(test)).thenReturn(test);
         when(paragraphsMapper.paragraphs2paragraphsDto(test)).thenReturn(requestDto);
-        ParagraphsDto expected = ParagraphsControllerTest.TestDataProvider.getTestDto();
+        ParagraphsDto expected = TestDataProvider.getTestDto();
         // when
         ParagraphsDto response = controller.modify(requestDto);
         // then
@@ -92,18 +92,18 @@ public class ParagraphsControllerTest {
     @Test
     void deleteFromQueryParamHappyPath() throws ParagraphNotFoundException {
         // given
-        Paragraphs test = ParagraphsControllerTest.TestDataProvider.getTestParagraph();
-        when(paragraphManager.readById(ParagraphsControllerTest.TestDataProvider.ID)).thenReturn(test);
+        Paragraphs test = TestDataProvider.getTestParagraph();
+        when(paragraphManager.readById(TestDataProvider.ID)).thenReturn(test);
         doNothing().when(paragraphManager).delete(test);
         // when
-        controller.delete(ParagraphsControllerTest.TestDataProvider.ID);
+        controller.delete(TestDataProvider.ID);
         // then is not necessary, mock are checked by default
     }
 
     @Test
     void deleteFromQueryParamWhenParagraphNotFound() throws ParagraphNotFoundException {
         // given
-        final int notFoundParagraphID = ParagraphsControllerTest.TestDataProvider.ID;
+        final int notFoundParagraphID = TestDataProvider.ID;
         doThrow(new ParagraphNotFoundException()).when(paragraphManager).readById(notFoundParagraphID);
 //        These two lines mean the same.
 //        doThrow(new BookNotFoundException()).when(bookManager).readByIsbn(notFoundBookIsbn);

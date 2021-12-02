@@ -38,9 +38,9 @@ public class CharactersControllerTest {
     @Test
     void readAllHappyPath() {
         // given
-        when(characterManager.readAll()).thenReturn(List.of(CharactersControllerTest.TestDataProvider.getTestCharacter()));
-        when(characterMapper.characters2charactersDto(any())).thenReturn(CharactersControllerTest.TestDataProvider.getTestDto());
-        Collection<CharactersDto> expected = List.of(CharactersControllerTest.TestDataProvider.getTestDto());
+        when(characterManager.readAll()).thenReturn(List.of(TestDataProvider.getTestCharacter()));
+        when(characterMapper.characters2charactersDto(any())).thenReturn(TestDataProvider.getTestDto());
+        Collection<CharactersDto> expected = List.of(TestDataProvider.getTestDto());
         // when
         Collection<CharactersDto> actual = controller.readAllCharacters();
         //then
@@ -52,8 +52,8 @@ public class CharactersControllerTest {
     @Test
     void createCharactersHappyPath() throws CharacterAlreadyExistsException {
         // given
-        Characters test = CharactersControllerTest.TestDataProvider.getTestCharacter();
-        CharactersDto testDto = CharactersControllerTest.TestDataProvider.getTestDto();
+        Characters test = TestDataProvider.getTestCharacter();
+        CharactersDto testDto = TestDataProvider.getTestDto();
         when(characterMapper.charactersDto2characters(testDto)).thenReturn(test);
         when(characterManager.record(test)).thenReturn(test);
         when(characterMapper.characters2charactersDto(test)).thenReturn(testDto);
@@ -66,8 +66,8 @@ public class CharactersControllerTest {
     @Test
     void createCharacterAlreadyExistsException() throws CharacterAlreadyExistsException {
         // given
-        Characters test = CharactersControllerTest.TestDataProvider.getTestCharacter();
-        CharactersDto testDto = CharactersControllerTest.TestDataProvider.getTestDto();
+        Characters test = TestDataProvider.getTestCharacter();
+        CharactersDto testDto = TestDataProvider.getTestDto();
         when(characterMapper.charactersDto2characters(testDto)).thenReturn(test);
         when(characterManager.record(test)).thenThrow(new CharacterAlreadyExistsException());
         // when then
@@ -79,12 +79,12 @@ public class CharactersControllerTest {
     @Test
     void updateHappyPath() throws CharacterNotFoundException {
         // given
-        CharactersDto requestDto = CharactersControllerTest.TestDataProvider.getTestDto();
-        Characters test = CharactersControllerTest.TestDataProvider.getTestCharacter();
+        CharactersDto requestDto = TestDataProvider.getTestDto();
+        Characters test = TestDataProvider.getTestCharacter();
         when(characterMapper.charactersDto2characters(requestDto)).thenReturn(test);
         when(characterManager.modify(test)).thenReturn(test);
         when(characterMapper.characters2charactersDto(test)).thenReturn(requestDto);
-        CharactersDto expected = CharactersControllerTest.TestDataProvider.getTestDto();
+        CharactersDto expected = TestDataProvider.getTestDto();
         // when
         CharactersDto response = controller.modify(requestDto);
         // then
@@ -96,18 +96,18 @@ public class CharactersControllerTest {
     @Test
     void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
         // given
-        Characters test = CharactersControllerTest.TestDataProvider.getTestCharacter();
-        when(characterManager.readById(CharactersControllerTest.TestDataProvider.ID)).thenReturn(test);
+        Characters test = TestDataProvider.getTestCharacter();
+        when(characterManager.readById(TestDataProvider.ID)).thenReturn(test);
         doNothing().when(characterManager).delete(test);
         // when
-        controller.delete(CharactersControllerTest.TestDataProvider.ID);
+        controller.delete(TestDataProvider.ID);
         // then is not necessary, mock are checked by default
     }
 
     @Test
     void deleteFromQueryParamWhenCharacterNotFound() throws CharacterNotFoundException {
         // given
-        final int notFoundCharacterID = CharactersControllerTest.TestDataProvider.ID;
+        final int notFoundCharacterID = TestDataProvider.ID;
         doThrow(new CharacterNotFoundException()).when(characterManager).readById(notFoundCharacterID);
 //        These two lines mean the same.
 //        doThrow(new BookNotFoundException()).when(bookManager).readByIsbn(notFoundBookIsbn);
