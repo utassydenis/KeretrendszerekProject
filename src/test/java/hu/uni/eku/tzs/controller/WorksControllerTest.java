@@ -44,8 +44,6 @@ public class WorksControllerTest {
         Collection<WorksDto> actual = controller.readAllWorks();
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-
-
     }
 
     @Test
@@ -113,6 +111,24 @@ public class WorksControllerTest {
 //        when(bookManager.readByIsbn(notFoundBookIsbn)).thenThrow(new BookNotFoundException());
         // when then
         assertThatThrownBy(() -> controller.delete(notFoundWorkID))
+                .isInstanceOf(ResponseStatusException.class);
+    }
+
+    @Test
+    void readByIdHappyPath() throws WorksNotFoundException {
+        when(workManager.readById(TestDataProvider.getTestWork().getId())).thenReturn(TestDataProvider.getTestWork());
+        WorksDto expected = TestDataProvider.getTestDto();
+        when(workMapper.works2worksDto(any())).thenReturn(TestDataProvider.getTestDto());
+        WorksDto actual = controller.readById(TestDataProvider.getTestWork().getId());
+        assertThat(actual).usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void readByIdWorkNotFoundException() throws WorksNotFoundException {
+        final int notFoundWorkId = TestDataProvider.ID;
+        doThrow(new WorksNotFoundException()).when(workManager).readById(notFoundWorkId);
+        assertThatThrownBy(() -> controller.readById(notFoundWorkId))
                 .isInstanceOf(ResponseStatusException.class);
     }
 

@@ -37,7 +37,7 @@ public class ChaptersControllerTest {
     private ChaptersController controller;
 
     @Test
-    void readAllHappyPath() {
+    void readAllHappyPath() { //ReadAll
         // given
         when(chapterManager.readAll()).thenReturn(List.of(TestDataProvider.getTestChapter()));
         when(chaptersMapper.chapters2ChaptersrDto(any())).thenReturn(TestDataProvider.getTestDto());
@@ -46,12 +46,10 @@ public class ChaptersControllerTest {
         Collection<ChaptersDto> actual = controller.readAllChapters();
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-
-
     }
 
     @Test
-    void createChaptersHappyPath() throws ChapterAlreadyExistsException {
+    void createChaptersHappyPath() throws ChapterAlreadyExistsException { //Create Chapter
         // given
         Chapters test = TestDataProvider.getTestChapter();
         ChaptersDto testDto = TestDataProvider.getTestDto();
@@ -65,7 +63,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void createChapterChapterAlreadyExistsException() throws ChapterAlreadyExistsException {
+    void createChapterChapterAlreadyExistsException() throws ChapterAlreadyExistsException { //Create chapter Exception
         // given
         Chapters test = TestDataProvider.getTestChapter();
         ChaptersDto testDto = TestDataProvider.getTestDto();
@@ -78,7 +76,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void updateHappyPath() throws ChapterNotFoundException {
+    void updateHappyPath() throws ChapterNotFoundException { //Update Chapter
         // given
         ChaptersDto requestDto = TestDataProvider.getTestDto();
         Chapters test = TestDataProvider.getTestChapter();
@@ -93,9 +91,8 @@ public class ChaptersControllerTest {
                 .isEqualTo(expected);
     }
 
-
     @Test
-    void deleteFromQueryParamHappyPath() throws ChapterNotFoundException {
+    void deleteFromQueryParamHappyPath() throws ChapterNotFoundException { //Delete chapter
         // given
         Chapters test = TestDataProvider.getTestChapter();
         when(chapterManager.readById(TestDataProvider.ID)).thenReturn(test);
@@ -106,7 +103,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamWhenChapterNotFound() throws ChapterNotFoundException {
+    void deleteFromQueryParamWhenChapterNotFound() throws ChapterNotFoundException { //Delete Chapter Chapter not found
         // given
         final int notFoundChapterID = TestDataProvider.ID;
         doThrow(new ChapterNotFoundException()).when(chapterManager).readById(notFoundChapterID);
@@ -115,6 +112,24 @@ public class ChaptersControllerTest {
 //        when(bookManager.readByIsbn(notFoundBookIsbn)).thenThrow(new BookNotFoundException());
         // when then
         assertThatThrownBy(() -> controller.delete(notFoundChapterID))
+                .isInstanceOf(ResponseStatusException.class);
+    }
+
+    @Test
+    void readByIdHappyPath() throws ChapterNotFoundException {
+        when(chapterManager.readById(TestDataProvider.getTestChapter().getId())).thenReturn(TestDataProvider.getTestChapter());
+        ChaptersDto expected = TestDataProvider.getTestDto();
+        when(chaptersMapper.chapters2ChaptersrDto(any())).thenReturn(TestDataProvider.getTestDto());
+        ChaptersDto actual = controller.readById(TestDataProvider.getTestChapter().getId());
+        assertThat(actual).usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void readByIdChapterNotFoundException() throws ChapterNotFoundException {
+        final int notFoundChapterId = TestDataProvider.ID;
+        doThrow(new ChapterNotFoundException()).when(chapterManager).readById(notFoundChapterId);
+        assertThatThrownBy(() -> controller.readById(notFoundChapterId))
                 .isInstanceOf(ResponseStatusException.class);
     }
 

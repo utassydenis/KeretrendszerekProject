@@ -36,7 +36,7 @@ public class CharactersControllerTest {
     private CharactersController controller;
 
     @Test
-    void readAllHappyPath() {
+    void readAllHappyPath() { //Read all
         // given
         when(characterManager.readAll()).thenReturn(List.of(TestDataProvider.getTestCharacter()));
         when(characterMapper.characters2charactersDto(any())).thenReturn(TestDataProvider.getTestDto());
@@ -45,12 +45,10 @@ public class CharactersControllerTest {
         Collection<CharactersDto> actual = controller.readAllCharacters();
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-
-
     }
 
     @Test
-    void createCharactersHappyPath() throws CharacterAlreadyExistsException {
+    void createCharactersHappyPath() throws CharacterAlreadyExistsException { //Create Character
         // given
         Characters test = TestDataProvider.getTestCharacter();
         CharactersDto testDto = TestDataProvider.getTestDto();
@@ -64,7 +62,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void createCharacterAlreadyExistsException() throws CharacterAlreadyExistsException {
+    void createCharacterAlreadyExistsException() throws CharacterAlreadyExistsException {//Create character already exists exception
         // given
         Characters test = TestDataProvider.getTestCharacter();
         CharactersDto testDto = TestDataProvider.getTestDto();
@@ -77,7 +75,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void updateHappyPath() throws CharacterNotFoundException {
+    void updateHappyPath() throws CharacterNotFoundException { //Update character
         // given
         CharactersDto requestDto = TestDataProvider.getTestDto();
         Characters test = TestDataProvider.getTestCharacter();
@@ -92,9 +90,8 @@ public class CharactersControllerTest {
                 .isEqualTo(expected);
     }
 
-
     @Test
-    void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
+    void deleteFromQueryParamHappyPath() throws CharacterNotFoundException { //Delete character
         // given
         Characters test = TestDataProvider.getTestCharacter();
         when(characterManager.readById(TestDataProvider.ID)).thenReturn(test);
@@ -105,7 +102,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamWhenCharacterNotFound() throws CharacterNotFoundException {
+    void deleteFromQueryParamWhenCharacterNotFound() throws CharacterNotFoundException { //Delete character character not found
         // given
         final int notFoundCharacterID = TestDataProvider.ID;
         doThrow(new CharacterNotFoundException()).when(characterManager).readById(notFoundCharacterID);
@@ -114,6 +111,24 @@ public class CharactersControllerTest {
 //        when(bookManager.readByIsbn(notFoundBookIsbn)).thenThrow(new BookNotFoundException());
         // when then
         assertThatThrownBy(() -> controller.delete(notFoundCharacterID))
+                .isInstanceOf(ResponseStatusException.class);
+    }
+
+    @Test
+    void readByIdHappyPath() throws CharacterNotFoundException {
+        when(characterManager.readById(TestDataProvider.getTestCharacter().getId())).thenReturn(TestDataProvider.getTestCharacter());
+        CharactersDto expected = TestDataProvider.getTestDto();
+        when(characterMapper.characters2charactersDto(any())).thenReturn(TestDataProvider.getTestDto());
+        CharactersDto actual = controller.readById(TestDataProvider.getTestCharacter().getId());
+        assertThat(actual).usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void readByIdCharacterNotFoundException() throws CharacterNotFoundException {
+        final int notFoundCharacterId = TestDataProvider.ID;
+        doThrow(new CharacterNotFoundException()).when(characterManager).readById(notFoundCharacterId);
+        assertThatThrownBy(() -> controller.readById(notFoundCharacterId))
                 .isInstanceOf(ResponseStatusException.class);
     }
 
