@@ -70,7 +70,7 @@ public class CharacterManagerImpl implements CharacterManager {
     public Characters modify(Characters character) throws CharacterNotFoundException {
         CharactersEntity entity = convertCharactersModel2Entity(character);
         if (characterRepository.findById(entity.getId()).isEmpty()) {
-            throw new CharacterNotFoundException(String.format("Modify error: Character ID %s not found", character.getId()));
+            throw new CharacterNotFoundException(String.format("Modify error: ID %s not found", character.getId()));
         }
         return convertCharactersEntity2Model(characterRepository.save(entity));
     }
@@ -78,7 +78,7 @@ public class CharacterManagerImpl implements CharacterManager {
     @Override
     public void delete(Characters character) throws CharacterNotFoundException {
         if (characterRepository.findById(character.getId()).isEmpty()) {
-            throw new CharacterNotFoundException(String.format("Delete error: Character ID %s not found", character.getId()));
+            throw new CharacterNotFoundException(String.format("Delete error: ID %s not found", character.getId()));
         }
         characterRepository.delete(convertCharactersModel2Entity(character));
     }
