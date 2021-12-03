@@ -73,7 +73,7 @@ public class WorkManagerImpl implements WorkManager {
     public Works modify(Works work) throws WorksNotFoundException {
         WorksEntity entity = convertWorkssModel2Entity(work);
         if (workRepository.findById(entity.getId()).isEmpty()) {
-            throw new WorksNotFoundException(String.format("Cannot modify nonexistent work with ID %s", work.getId()));
+            throw new WorksNotFoundException(String.format("Cannot modify work with ID %s, not found", work.getId()));
         }
         return convertWorksEntity2Model(workRepository.save(entity));
     }
@@ -81,7 +81,7 @@ public class WorkManagerImpl implements WorkManager {
     @Override
     public void delete(Works work) throws WorksNotFoundException {
         if (workRepository.findById(work.getId()).isEmpty()) {
-            throw new WorksNotFoundException(String.format("Cannot delete nonexistent work with ID %s", work.getId()));
+            throw new WorksNotFoundException(String.format("Cannot delete work with ID %s, not found", work.getId()));
         }
         workRepository.delete(convertWorkssModel2Entity(work));
     }
