@@ -71,13 +71,19 @@ public class ChapterManagerImpl implements ChapterManager {
     }
 
     @Override
-    public Chapters modify(Chapters chapter) {
+    public Chapters modify(Chapters chapter) throws ChapterNotFoundException {
         ChaptersEntity entity = convertChaptersModel2Entity(chapter);
+        if (chapterRepository.findById(entity.getId()).isEmpty()) {
+            throw new ChapterNotFoundException(String.format("Cannot find chapter with ID %s", chapter.getId()));
+        }
         return convertChaptersEntity2Model(chapterRepository.save(entity));
     }
 
     @Override
-    public void delete(Chapters chapter) {
+    public void delete(Chapters chapter) throws ChapterNotFoundException {
+        if (chapterRepository.findById(chapter.getId()).isEmpty()) {
+            throw new ChapterNotFoundException(String.format("Cannot find chapter with ID %s", chapter.getId()));
+        }
         chapterRepository.delete(convertChaptersModel2Entity(chapter));
     }
 }

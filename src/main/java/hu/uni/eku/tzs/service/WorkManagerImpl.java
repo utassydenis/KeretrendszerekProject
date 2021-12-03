@@ -7,6 +7,7 @@ import hu.uni.eku.tzs.service.exceptions.WorksAlreadyExistsException;
 import hu.uni.eku.tzs.service.exceptions.WorksNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,13 +70,19 @@ public class WorkManagerImpl implements WorkManager {
     }
 
     @Override
-    public Works modify(Works work) {
+    public Works modify(Works work) throws WorksNotFoundException {
         WorksEntity entity = convertWorkssModel2Entity(work);
+        if (workRepository.findById(entity.getId()).isEmpty()) {
+            throw new WorksNotFoundException(String.format("Cannot find work with ID %s", work.getId()));
+        }
         return convertWorksEntity2Model(workRepository.save(entity));
     }
 
     @Override
-    public void delete(Works work) {
+    public void delete(Works work) throws WorksNotFoundException {
+        if (workRepository.findById(work.getId()).isEmpty()) {
+            throw new WorksNotFoundException(String.format("Cannot find work with ID %s", work.getId()));
+        }
         workRepository.delete(convertWorkssModel2Entity(work));
     }
 }

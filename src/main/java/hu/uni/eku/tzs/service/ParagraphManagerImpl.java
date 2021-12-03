@@ -71,13 +71,19 @@ public class ParagraphManagerImpl implements ParagraphManager {
     }
 
     @Override
-    public Paragraphs modify(Paragraphs paragraph) {
+    public Paragraphs modify(Paragraphs paragraph) throws ParagraphNotFoundException {
         ParagraphsEntity entity = convertParagraphssModel2Entity(paragraph);
+        if (paragraphsRepository.findById(entity.getId()).isEmpty()) {
+            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s", paragraph.getId()));
+        }
         return convertParagraphsEntity2Model(paragraphsRepository.save(entity));
     }
 
     @Override
-    public void delete(Paragraphs paragraph) {
+    public void delete(Paragraphs paragraph) throws ParagraphNotFoundException {
+        if (paragraphsRepository.findById(paragraph.getId()).isEmpty()) {
+            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s", paragraph.getId()));
+        }
         paragraphsRepository.delete(convertParagraphssModel2Entity(paragraph));
     }
 }
