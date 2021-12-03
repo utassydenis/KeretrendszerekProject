@@ -81,7 +81,7 @@ public class WorkManagerImpl implements WorkManager {
     @Override
     public void delete(Works work) throws WorksNotFoundException {
         if (workRepository.findById(work.getId()).isEmpty()) {
-            throw new WorksNotFoundException(String.format("Modify error: ID %s not found", work.getId()));
+            throw new WorksNotFoundException(String.format("Delete error: ID %s not found", work.getId()));
         }
         workRepository.delete(convertWorkssModel2Entity(work));
     }
