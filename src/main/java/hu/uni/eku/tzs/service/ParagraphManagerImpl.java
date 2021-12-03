@@ -59,7 +59,7 @@ public class ParagraphManagerImpl implements ParagraphManager {
     public Paragraphs readById(int id) throws ParagraphNotFoundException {
         Optional<ParagraphsEntity> entity = paragraphsRepository.findById(id);
         if (entity.isEmpty()) {
-            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s", id));
+            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s , it doesn't exist.", id));
         }
         return convertParagraphsEntity2Model(entity.get());
     }
@@ -74,7 +74,7 @@ public class ParagraphManagerImpl implements ParagraphManager {
     public Paragraphs modify(Paragraphs paragraph) throws ParagraphNotFoundException {
         ParagraphsEntity entity = convertParagraphssModel2Entity(paragraph);
         if (paragraphsRepository.findById(entity.getId()).isEmpty()) {
-            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s", paragraph.getId()));
+            throw new ParagraphNotFoundException(String.format("Cannot modify paragraph with ID %s , it doesn't exist.", paragraph.getId()));
         }
         return convertParagraphsEntity2Model(paragraphsRepository.save(entity));
     }
@@ -82,7 +82,7 @@ public class ParagraphManagerImpl implements ParagraphManager {
     @Override
     public void delete(Paragraphs paragraph) throws ParagraphNotFoundException {
         if (paragraphsRepository.findById(paragraph.getId()).isEmpty()) {
-            throw new ParagraphNotFoundException(String.format("Cannot find paragraph with ID %s", paragraph.getId()));
+            throw new ParagraphNotFoundException(String.format("Cannot delete paragraph with ID %s , it doesn't exist.", paragraph.getId()));
         }
         paragraphsRepository.delete(convertParagraphssModel2Entity(paragraph));
     }
