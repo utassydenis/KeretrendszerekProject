@@ -46,7 +46,7 @@ public class CharactersController {
     }
 
     @ApiOperation("readById")
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     public CharactersDto readById(@PathVariable int id) {
         try {
             return characterMapper.characters2charactersDto(characterManager.readById(id));

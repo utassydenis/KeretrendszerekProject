@@ -46,7 +46,7 @@ public class WorksController {
     }
 
     @ApiOperation("readById")
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     public WorksDto readById(@PathVariable int id) {
         try {
             return worksMapper.works2worksDto(worksManager.readById(id));

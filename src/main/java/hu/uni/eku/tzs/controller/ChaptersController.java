@@ -47,7 +47,7 @@ public class ChaptersController {
     }
 
     @ApiOperation("readById")
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     public ChaptersDto readById(@PathVariable int id) {
         try {
             return chapterMapper.chapters2ChaptersrDto(chapterManager.readById(id));

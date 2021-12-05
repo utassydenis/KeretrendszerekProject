@@ -47,7 +47,7 @@ public class ParagraphsController {
     }
 
     @ApiOperation("readById")
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     public ParagraphsDto readById(@PathVariable int id) {
         try {
             return paragraphMapper.paragraphs2paragraphsDto(paragraphManager.readById(id));
